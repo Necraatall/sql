@@ -1,0 +1,31 @@
+*****JOIN*****
+--pro mtd.OBE_Contract
+SELECT TOP (50) mo.CRMOBEID, mtc.CRMTollContractID, mv.CRMVehicleID, cu.CustomerName, * 
+FROM mtd.OBE_Contract moc 
+join mtd.OBE mo on mo.Id = moc.OBEID 
+join mtd.TollContract mtc on mtc.Id = moc.TollContractID
+join mtd.Vehicle mv on mv.Id = moc.VehicleID
+join mtd.Customer cu on cu.Id = mv.CustomerID
+order by moc.ChangedAt desc
+***************************
+*****Promenna s joinem*****
+DECLARE @CRMOBEID varchar(50) = '0039B821953A'
+
+SELECT * FROM mtd.Customer mc
+join mtd.OBE mo on mo.CustomerID = mc.Id
+where mo.CRMOBEID = @CRMOBEID
+
+SELECT * FROM mtd.TollContract mtc
+join mtd.OBE mo on mo.CustomerID = mtc.CustomerID
+where mo.CRMOBEID = @CRMOBEID
+
+SELECT * FROM mtd.Vehicle mv
+join mtd.OBE mo on mo.VehicleID = mv.Id
+where mo.CRMOBEID = @CRMOBEID
+
+SELECT * FROM mtd.OBE mo where mo.CRMOBEID = @CRMOBEID
+
+SELECT * FROM mtd.OBEServiceData mosd 
+join mtd.OBE mo on mo.Id = mosd.OBEID
+where mo.CRMOBEID = @CRMOBEID
+***************************
